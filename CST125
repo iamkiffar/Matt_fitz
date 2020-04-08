@@ -1,0 +1,104 @@
+:: Batch file name - MenuDrivenSystem.bat
+::
+:: Program name - Menu Driven System
+::
+:: Author - Matthew Fitzgerald
+::
+:: Written - April 9, 2020
+::
+:: Purpose - Exam #2 for William Myers and CST125 class
+::           This program will allow a user to make a choice and
+::           navigate between various options presented to them
+::            
+::
+@echo off
+title Menu Driven System
+echo.
+echo.
+:MENU
+echo ---------------------------------
+echo Welcome to the Menu Driven System
+echo Please select your option below
+echo ---------------------------------
+echo.
+
+echo 1 - Start a browser
+echo 2 - Start Notepad
+echo 3 - Write network status to file
+echo 4 - Display environment variables
+echo 5 - Exit the Menu Driven System
+echo.
+
+@echo off
+set /P choice="Please enter selection: " 
+IF %choice%==1 GOTO BROWSER
+IF %choice%==2 GOTO NOTEPAD
+IF %choice%==3 GOTO NETWORKFILE
+IF %choice%==4 GOTO VARIABLES
+IF %choice%==5 GOTO EXIT
+CLS
+echo Bad Robot! You've entered %choice% which is not valid. Please select 1, 2, 3, 4, or 5.
+pause
+CLS
+GOTO MENU
+
+:BROWSER
+start /D "C:\Program Files (x86)\Google\Chrome\Application" chrome.exe https://technews.acm.org/ 
+echo Opening Chrome...
+pause
+CLS
+GOTO MENU
+:NOTEPAD
+start /D "%windir%\system32" notepad.exe
+echo Opening Notepad...
+pause
+CLS
+GOTO MENU
+:NETWORKFILE
+echo Network check is underway
+ipconfig /all > NetworkStatus.txt
+nslookup google.com >> networkstatus.txt 2>&1
+ping  google.com >> networkstatus.txt
+echo Process complete
+pause
+CLS
+GOTO MENU
+:VARIABLES
+CLS
+echo ---------------------------------
+echo Please select the environment
+echo variable you want to see...
+echo ---------------------------------
+echo.
+echo 1 - USERNAME - The currently logged in user (that's you).
+echo 2 - OS - The internal name of this operating system.
+echo 3 - PROCESSOR_IDENTIFIER - what type of CPU you paid for...
+echo 4 - Return to the main menu
+echo.
+set /P choice=Please enter selection:
+IF %choice%==1 (
+echo "%USERNAME%"
+pause
+CLS
+GOTO VARIABLES
+)
+IF %choice%==2 (
+echo "%OS%"
+pause
+CLS
+GOTO VARIABLES
+)
+IF %choice%==3 (
+echo "%PROCESSOR_IDENTIFIER%"
+pause
+CLS
+GOTO VARIABLES
+)
+CLS
+IF %choice%==4  GOTO MENU
+CLS
+echo Again?? We went over this already. Please choose from the following VALID responses: 1, 2, or 3.
+pause
+CLS
+GOTO VARIABLES
+CLS
