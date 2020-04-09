@@ -6,7 +6,7 @@
 ::
 :: Written - April 9, 2020
 ::
-:: Purpose - Exam #2 for William Myers and CST125 class
+:: Purpose - Exam #2 for CST125
 ::           This program will allow a user to make a choice and
 ::           navigate between various options presented to them
 ::            
@@ -48,21 +48,30 @@ echo Opening Chrome...
 pause
 CLS
 GOTO MENU
+
+
 :NOTEPAD
 start /D "%windir%\system32" notepad.exe
 echo Opening Notepad...
 pause
 CLS
 GOTO MENU
+
+
 :NETWORKFILE
 echo Network check is underway
 ipconfig /all > NetworkStatus.txt
-nslookup google.com >> networkstatus.txt 2>&1
-ping  google.com >> networkstatus.txt
-echo Process complete
-pause
+nslookup google.com >> NetworkStatus.txt 2>&1
+ping  google.com >> NetworkStatus.txt
+echo Process complete...
+set /P choice="Enter Y if you'd like to view results: "
+IF /I %choice%=="Y" GOTO VIEWRESULTS
+:VIEWRESULTS
+start NetworkStatus.txt
 CLS
 GOTO MENU
+
+
 :VARIABLES
 CLS
 echo ---------------------------------
@@ -75,6 +84,8 @@ echo 2 - OS - The internal name of this operating system.
 echo 3 - PROCESSOR_IDENTIFIER - what type of CPU you paid for...
 echo 4 - Return to the main menu
 echo.
+
+
 set /P choice=Please enter selection:
 IF %choice%==1 (
 echo "%USERNAME%"
@@ -82,12 +93,16 @@ pause
 CLS
 GOTO VARIABLES
 )
+
+
 IF %choice%==2 (
 echo "%OS%"
 pause
 CLS
 GOTO VARIABLES
 )
+
+
 IF %choice%==3 (
 echo "%PROCESSOR_IDENTIFIER%"
 pause
